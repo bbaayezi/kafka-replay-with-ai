@@ -6,16 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 @RestController
+@RequestMapping("chat")
 @Slf4j
 public class ChatController {
 
@@ -41,7 +39,7 @@ public class ChatController {
         this.kafkaReplayService = kafkaReplayService;
     }
 
-    @GetMapping("/chat/consume")
+    @GetMapping("/consume")
     public ResponseEntity<List<String>> consumeMessages(@RequestBody ConsumeRequest consumeRequest) {
         List<String> consumedMessages = kafkaReplayService.consumeMessages(
                 consumeRequest.topic(),
